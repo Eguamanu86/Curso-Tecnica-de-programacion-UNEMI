@@ -1,2 +1,2 @@
-# Curso-T-cnica-de-programaci-n-UNEMI
+# Curso-Técnica-de-programación-UNEMI
 Algoritmos, JavaScript, Python
