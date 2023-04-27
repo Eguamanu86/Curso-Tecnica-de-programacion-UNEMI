@@ -51,6 +51,7 @@
 
         btnValidarPrimo.addEventListener('click', (event) => {
             event.preventDefault()
+            txtRespuesta.value = ''
             const numero = parseInt(txtNumero.value)
             if (isNaN(numero)) {
                 alert('Ingrese el valor de N')
@@ -81,6 +82,7 @@
         // 6 se puede dividir por 1, 2 y 3, y cuando sumas esos números, el resultado es 6
         btnValidarPerfecto.addEventListener('click', (event) => {
             event.preventDefault()
+            txtRespuesta.value = ''
             const numero = parseInt(txtNumero.value)
             if (isNaN(numero)) {
                 alert('Ingrese el valor de N')
@@ -112,6 +114,7 @@
 
         btnCalcularFactorial.addEventListener('click', (event) => {
             event.preventDefault()
+            txtRespuesta.value = ''
             const numero = parseInt(txtNumero.value)
             if (isNaN(numero)) {
                 alert('Ingrese el valor de N')
@@ -141,9 +144,14 @@
 
         btnValidarPalindromo.addEventListener('click', (event) => {
             event.preventDefault()
+            txtRespuesta.value = ''
             const numero = parseInt(txtNumero.value)
             if (isNaN(numero)) {
                 alert('Ingrese el valor de N')
+                return
+            }
+            if (numero < 10) {
+                alert('Ingrese el valor de numerico mayor a >= 10')
                 return
             }
             if (fnEsPalindromo(numero)) {
@@ -155,9 +163,15 @@
         })
 
         function fnEsPalindromo(numero) {
-
+            let numCopia = numero
+            let invertido = 0
+            while (numCopia) {
+                residuo = numCopia % 10
+                numCopia = parseInt(numCopia / 10)
+                invertido = invertido * 10 + residuo
+            }
+            return invertido === numero
         }
-
 
     </script>
 </body>
