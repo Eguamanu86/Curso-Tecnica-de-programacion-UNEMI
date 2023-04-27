@@ -43,6 +43,8 @@
 
         const btnValidarPrimo = document.getElementById("btn-validar-primo")
         const btnValidarPerfecto = document.getElementById("btn-validar-perfecto")
+        const btnCalcularFactorial = document.getElementById("btn-calcular-factorial")
+        const btnValidarPalindromo = document.getElementById("btn-validar-palindromo")
 
         // Los números primos son aquellos que solo son divisibles entre ellos mismos y el 1,
         // es decir, que si intentamos dividirlos por cualquier otro número, el resultado no es entero
@@ -107,6 +109,55 @@
                 return false
             }
         }
+
+        btnCalcularFactorial.addEventListener('click', (event) => {
+            event.preventDefault()
+            const numero = parseInt(txtNumero.value)
+            if (isNaN(numero)) {
+                alert('Ingrese el valor de N')
+                return
+            }
+            txtRespuesta.value = fnCalcularFactorialCreciente(numero)
+            //txtRespuesta.value = fnCalcularFactorialDecreciente(numero)
+        })
+
+        function fnCalcularFactorialCreciente(numero) {
+            let acumulador = 1
+            for (let i = 1; i <= numero; i++) {
+                acumulador = acumulador * i
+            }
+            return acumulador
+        }
+
+        function fnCalcularFactorialDecreciente(numero) {
+            let acumulador = 1
+            while (numero) {
+                acumulador = acumulador * numero
+                numero--
+            }
+            return acumulador
+        }
+
+
+        btnValidarPalindromo.addEventListener('click', (event) => {
+            event.preventDefault()
+            const numero = parseInt(txtNumero.value)
+            if (isNaN(numero)) {
+                alert('Ingrese el valor de N')
+                return
+            }
+            if (fnEsPalindromo(numero)) {
+                txtRespuesta.value = 'es Palindromo'
+            } else {
+                txtRespuesta.value = 'No es Palindromo'
+            }
+
+        })
+
+        function fnEsPalindromo(numero) {
+
+        }
+
 
     </script>
 </body>
