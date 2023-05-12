@@ -35,7 +35,7 @@
     <table id="id-table-vector-numerico" border="1" cellspacing="1" cellpadding="1">
         <thead>
             <tr>
-                <td colspan="10">Vector numerico de 10 elementos</td>
+                <td colspan="10">Vector numerico de N elementos</td>
             </tr>
         </thead>
         <tbody>
@@ -83,7 +83,17 @@
             </tr>
             <tr>
                 <td colspan="5"><button id="btn-calcular-mediana">Calcular Mediana</button></td>
-                <td colspan="5"><button id="btn-calcular-otro">...</button></td>
+                <td colspan="5"> </td>
+            </tr>
+
+            <tr>
+                <td colspan="5"><button id="btn-ordenar-asc-seleccion">Ordenar ASC Método Selección</button></td>
+                <td colspan="5"><button id="btn-ordenar-desc-seleccion">Ordenar DESC Método Selección</button></td>
+            </tr>
+
+            <tr>
+                <td colspan="5"><button id="btn-ordenar-asc-seleccion">Ordenar ASC Método Burbuja</button></td>
+                <td colspan="5"><button id="btn-ordenar-desc-seleccion">Ordenar DESC Método Burbuja</button></td>
             </tr>
         </tfoot>
     </table>
@@ -201,7 +211,6 @@
         }
 
         /// Calcular Valores Maximo y Minomo
-
         btnValorMaximo.addEventListener('click', (event) => {
             event.preventDefault()
             let copiaVector = [...vector]
@@ -214,7 +223,7 @@
             txtRespuesta.value = fnBuscarNumeroMenor(copiaVector)
         })
 
-        //
+        // RETORNA VALOR MAXIMO
         function fnBuscarNumeroMayor(copiaVector) {
             let numeroMayor = copiaVector[0]
             for (let i = 1; i < copiaVector.length; i++) {
@@ -225,6 +234,7 @@
             return numeroMayor
         }
 
+        // RETORNA VALOR MINIMO
         function fnBuscarNumeroMenor(copiaVector) {
             let numeroMenor = copiaVector[0]
             for (let i = 1; i < copiaVector.length; i++) {
@@ -279,7 +289,6 @@
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         /// Calcular Media en un Array de numeros
-
         btnCalcularMedia.addEventListener('click', (event) => {
             event.preventDefault()
             let suma = fnSumarValores()
@@ -291,7 +300,6 @@
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         /// Calcular Mediana en un Array de numeros
-
         btnCalcularMediana.addEventListener('click', (event) => {
             event.preventDefault()
             let copiaVector = [...vector]
