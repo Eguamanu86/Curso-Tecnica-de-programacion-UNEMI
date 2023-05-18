@@ -92,7 +92,7 @@
             </tr>
 
             <tr>
-                <td colspan="5"><button id="btn-ordenar-asc-seleccion">Ordenar ASC Método Burbuja</button></td>
+                <td colspan="5"><button id="btn-ordenar-asc-burbuja">Ordenar ASC Método Burbuja</button></td>
                 <td colspan="5"><button id="btn-ordenar-desc-seleccion">Ordenar DESC Método Burbuja</button></td>
             </tr>
         </tfoot>
@@ -126,7 +126,8 @@
         const btnCalcularModa = document.getElementById("btn-calcular-moda")
         const btnCalcularMedia = document.getElementById("btn-calcular-media")
         const btnCalcularMediana = document.getElementById("btn-calcular-mediana")
-        const txtRespuesta = document.getElementById("id-txt-respuesta")
+        const btnordenarascburbuja = document.getElementById("btn-ordenar-asc-burbuja")
+        const btnordenarasSeleccion = document.getElementById("btn-ordenar-asc-seleccion")
 
         const selectDimension = document.getElementById("select-dimension-arreglo")
         let TOPE = parseInt(selectDimension.options[selectDimension.selectedIndex].value)
@@ -316,6 +317,50 @@
             }
 
         })
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        /// Ordenamiento por metodo de Burbuja
+        btnordenarascburbuja.addEventListener('click', (event) => {
+            event.preventDefault()
+            ordenarAscBurbuja()
+            fnPresentarVector()
+        })
+
+        function ordenarAscBurbuja() {
+            for (let i = 0; i < vector.length - 1; i++) {
+                for (let j = 0; j < vector.length - i - 1; j++) {
+                    if (vector[j] > vector[j + 1]) {
+                        let auxiliar = vector[j];
+                        vector[j] = vector[j + 1];
+                        vector[j + 1] = auxiliar
+                    }
+                }
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        /// Ordenamiento por metodo de Seleccion
+        btnordenarasSeleccion.addEventListener('click', (event) => {
+            event.preventDefault()
+            ordenarAscSeleccion()
+            fnPresentarVector()
+        })
+
+        function ordenarAscSeleccion() {
+            for (let i = 0; i < vector.length - 1; i++) {
+                let minimo = vector[i]
+                let p = i
+                for (let j = i + 1; j < vector.length; j++) {
+                    if (minimo > vector[j]) {
+                        minimo = vector[j]
+                        p = j
+                    }
+                }
+                vector[p] = vector[i]
+                vector[i] = minimo
+            }
+        }
+
     </script>
 </body>
 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios con Matrices Numericas</title>
+    <style>
+        table td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h4>Ejercicio con Matrices</h4>
+    <div>
+        Dimension de la Matriz:
+        <select id="select-dimension-filas">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        x
+        <select id="select-dimension-columnas">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+    </div>
+    <br>
+    <table id="id-table-vector-numerico" border="1" cellspacing="1" cellpadding="1">
+        <thead>
+            <tr>
+                <td colspan="10">Matriz numerico de N elementos</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="10">No se ha cargado la matriz</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5"><button id="btn-cargar-matriz">Cargar Matriz</button></td>
+                <td colspan="5"><button id="btn-vaciar-matriz">Vaciar Matriz</button></td>
+            </tr>
+        </tfoot>
+    </table>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <td colspan="2">Calculos con Matrices </td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Resultado:</td>
+                <td colspan="2"><input type="text" id="id-txt-respuesta"></td>
+            </tr>
+            </tbody>
+    </table>
+</body>
+
+<script>
+    let matriz = []
+    const NUM_MAXIMO_RANDOM = 20
+
+    const tableTbody = document.querySelector('#id-table-vector-numerico > tbody')
+    const btnCargarMatriz = document.getElementById("btn-cargar-matriz")
+    const btnVaciarMatriz = document.getElementById("btn-vaciar-matriz")
+
+    const selectDimensionFilas = document.getElementById("select-dimension-filas")
+    const selectDimensionColumnas = document.getElementById("select-dimension-columnas")
+
+    let FILAS = parseInt(selectDimensionFilas.options[selectDimensionFilas.selectedIndex].value)
+    let COLUMNAS = parseInt(selectDimensionColumnas.options[selectDimensionColumnas.selectedIndex].value)
+
+    selectDimensionFilas.addEventListener('change', (event) => {
+        FILAS = parseInt(event.target.value)
+    })
+
+    selectDimensionColumnas.addEventListener('change', (event) => {
+        COLUMNAS = parseInt(event.target.value)
+    })
+
+    btnCargarMatriz.addEventListener('click', (event) => {
+        event.preventDefault()
+        fnVaciarMatriz()
+        fnCargarMatriz()
+        fnPresentarMatriz()
+    })
+
+    function fnCargarMatriz() {
+        for (let f = 0; f < FILAS; f++) {
+            matriz[f] = []
+            for (let c = 0; c < COLUMNAS; c++) {
+                const numero = Math.ceil(Math.random() * NUM_MAXIMO_RANDOM)
+                matriz[f][c] = numero
+            }
+        }
+    }
+    function fnVaciarMatriz() {
+        matriz = []
+    }
+
+    function fnPresentarMatriz() {
+        let str = ''
+        for (let v of matriz) {
+            str += '<tr>'
+            str += v.map(e => `<td>${e}</td>`).join('')
+            str += '</tr>'
+        }
+        tableTbody.innerHTML = str
+    }
+
+</script>
+
+</html>
