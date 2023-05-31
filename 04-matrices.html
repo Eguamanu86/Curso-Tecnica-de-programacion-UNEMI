@@ -58,20 +58,23 @@
                 <td colspan="5"><button id="btn-cargar-matriz">Cargar Matriz</button></td>
                 <td colspan="5"><button id="btn-vaciar-matriz">Vaciar Matriz</button></td>
             </tr>
+            <tr>
+                <td colspan="10"><button id="btn-ordenar-matriz">Ordenar Matriz ASC</button></td>
+            </tr>
         </tfoot>
     </table>
     <br>
     <table id="id-table-matriz-resultado" border="1" cellspacing="1" cellpadding="1">
         <thead>
             <tr>
-                <td colspan="2">Resultado de Calculos con Matrices </td>
+                <td colspan="10">Resultado de Calculos con Matrices </td>
             </tr>
         </thead>
         <tbody>
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2"><textarea name="" id="id-txt-respuesta" cols="30" rows="10"></textarea></td>
+                <td colspan="5"><textarea name="" id="id-txt-respuesta" cols="30" rows="10"></textarea></td>
             </tr>
         </tfoot>
     </table>
@@ -79,7 +82,9 @@
     <script>
         // ARREGLO BIDIMENSIONAL
         let matriz = []
-        const NUM_MINIMO_RANDOM = -100
+        let matrizResultado = []
+
+        const NUM_MINIMO_RANDOM = 1
         const NUM_MAXIMO_RANDOM = 100
 
         // refrencia al cuerpo de la tabla: tbody
@@ -89,6 +94,7 @@
         // agregamos las referencias a los botones del DOM
         const btnCargarMatriz = document.getElementById("btn-cargar-matriz")
         const btnVaciarMatriz = document.getElementById("btn-vaciar-matriz")
+        const btnOrdenarMatriz = document.getElementById("btn-ordenar-matriz")
 
         // referencia a la caja de texto: control textarea
         const txtRespuesta = document.getElementById("id-txt-respuesta")
@@ -149,6 +155,48 @@
                 str += '</tr>'
             }
             tableTbody.innerHTML = str
+        }
+        // procedimiento que genera cadena de etiquetas HTML(tr,td) para presentar en la pantalla GUI
+        function fnPresentarMatrizResultado() {
+            let str = ''
+            for (let v of matrizResultado) {
+                str += '<tr>'
+                str += v.map(e => `<td>${e}</td>`).join('')
+                str += '</tr>'
+            }
+            tableTbodyResultado.innerHTML = str
+        }
+
+
+        // metodos de burbuja
+        btnOrdenarMatriz.addEventListener('click', (event) => {
+            event.preventDefault()
+            fnOrdenarMatrizMeotodoBurbuja()
+            fnPresentarMatrizResultado()
+        })
+
+        // ordenamiento de valores por metodos de burbuja,
+        // recorriendo todos los elementos de la matriz
+        function fnOrdenarMatrizMeotodoBurbuja() {
+            matrizResultado = [...matriz]
+            for (let m = 0; m < FILAS; m++) {
+
+                for (let n = 0; n < COLUMNAS; n++) {
+
+                    for (let f = 0; f < FILAS; f++) {
+
+                        for (let c = 0; c < COLUMNAS; c++) {
+
+                            if (matrizResultado[m][n] < matrizResultado[f][c]) {
+                                const temp = matrizResultado[m][n]
+                                matrizResultado[m][n] = matrizResultado[f][c]
+                                matrizResultado[f][c] = temp
+                            }
+
+                        }
+                    }
+                }
+            }
         }
     </script>
 </body>
