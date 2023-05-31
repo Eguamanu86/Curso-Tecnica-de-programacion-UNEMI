@@ -16,7 +16,7 @@
 <body>
     <h4>Ejercicio con Matrices</h4>
     <div>
-        Dimension de la Matriz:
+        Dimension de la Matriz:[Fil]
         <select id="select-dimension-filas">
             <option value="3">3</option>
             <option value="4">4</option>
@@ -28,6 +28,7 @@
             <option value="10">10</option>
         </select>
         x
+        [Col]
         <select id="select-dimension-columnas">
             <option value="3">3</option>
             <option value="4">4</option>
@@ -56,12 +57,6 @@
             <tr>
                 <td colspan="5"><button id="btn-cargar-matriz">Cargar Matriz</button></td>
                 <td colspan="5"><button id="btn-vaciar-matriz">Vaciar Matriz</button></td>
-            <tr>
-                <td colspan="10"><button id="btn-ordenar-matriz">Ordenar Matriz ASC</button></td>
-            </tr>
-            <tr>
-                <td colspan="5"><button id="btn-sumar-filas-matriz">Sumar Filas de Matriz</button></td>
-                <td colspan="5"><button id="btn-sumar-columnas-matriz">Sumar Columnas de Matriz</button></td>
             </tr>
         </tfoot>
     </table>
@@ -84,7 +79,8 @@
     <script>
         // ARREGLO BIDIMENSIONAL
         let matriz = []
-        const NUM_MAXIMO_RANDOM = 50
+        const NUM_MINIMO_RANDOM = -100
+        const NUM_MAXIMO_RANDOM = 100
 
         // refrencia al cuerpo de la tabla: tbody
         const tableTbody = document.querySelector('#id-table-matriz-numerico > tbody')
@@ -93,9 +89,6 @@
         // agregamos las referencias a los botones del DOM
         const btnCargarMatriz = document.getElementById("btn-cargar-matriz")
         const btnVaciarMatriz = document.getElementById("btn-vaciar-matriz")
-        const btnOrdenarMatriz = document.getElementById("btn-ordenar-matriz")
-        const btnSumarFilasMatriz = document.getElementById("btn-sumar-filas-matriz")
-        const btnSumarColumnasMatriz = document.getElementById("btn-sumar-columnas-matriz")
 
         // referencia a la caja de texto: control textarea
         const txtRespuesta = document.getElementById("id-txt-respuesta")
@@ -130,7 +123,7 @@
             for (let f = 0; f < FILAS; f++) {
                 matriz[f] = []
                 for (let c = 0; c < COLUMNAS; c++) {
-                    const numero = Math.ceil(Math.random() * NUM_MAXIMO_RANDOM)
+                    const numero = Math.floor(Math.random() * (NUM_MAXIMO_RANDOM - NUM_MINIMO_RANDOM)) + NUM_MINIMO_RANDOM;
                     matriz[f][c] = numero
                 }
             }
