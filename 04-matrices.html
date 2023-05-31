@@ -117,7 +117,7 @@
             COLUMNAS = parseInt(event.target.value)
         })
 
-
+        // evento del boton cargar matriz
         btnCargarMatriz.addEventListener('click', (event) => {
             event.preventDefault()
             fnVaciarMatriz()
@@ -136,6 +136,7 @@
             }
         }
 
+        // evento del boton vaciar matriz
         btnVaciarMatriz.addEventListener('click', (event) => {
             event.preventDefault()
             fnVaciarMatriz()
@@ -146,6 +147,7 @@
             matriz = []
         }
 
+        // procedimiento que genera cadena de etiquetas HTML(tr,td) para presentar en la pantalla GUI
         function fnPresentarMatriz() {
             let str = ''
             for (let v of matriz) {
@@ -154,104 +156,6 @@
                 str += '</tr>'
             }
             tableTbody.innerHTML = str
-        }
-
-
-
-        btnOrdenarMatriz.addEventListener('click', (event) => {
-            event.preventDefault()
-            fnOrdenarMatrizMeotodoBurbuja()
-            //fnOrdenarMatrizMeotodoBurbujaConVectorAuxiliar()
-            fnPresentarMatriz()
-        })
-
-        // ordenamiento de valores por metodos de burbuja,
-        // recorriendo todos los elementos de la matriz
-        function fnOrdenarMatrizMeotodoBurbuja() {
-            for (let m = 0; m < FILAS; m++) {
-
-                for (let n = 0; n < COLUMNAS; n++) {
-
-                    for (let f = 0; f < FILAS; f++) {
-
-                        for (let c = 0; c < COLUMNAS; c++) {
-
-                            if (matriz[m][n] < matriz[f][c]) {
-                                const temp = matriz[m][n]
-                                matriz[m][n] = matriz[f][c]
-                                matriz[f][c] = temp
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
-
-        // ordenamiento de valores por metodos de burbuja,
-        // utilizando un vector temporal para ordenar y luego pasarlos a la matriz original
-        function fnOrdenarMatrizMeotodoBurbujaConVectorAuxiliar() {
-            let vectorUnidimensional = []
-            vectorUnidimensional = vectorUnidimensional.concat(...matriz)
-
-            vectorUnidimensional = ordenarVectorPorMetodoBurbuja(vectorUnidimensional)
-
-            for (let f = 0; f < FILAS; f++) {
-                matriz[f] = vectorUnidimensional.splice(0, COLUMNAS)
-            }
-
-        }
-
-        //Metodo de burbuja para vectores unidimensional.
-        function ordenarVectorPorMetodoBurbuja(vector) {
-            for (let i = 0; i < vector.length - 1; i++) {
-                for (let j = i + 1; j < vector.length; j++) {
-                    if (vector[i] > vector[j]) {
-                        let auxiliar = vector[i];
-                        vector[i] = vector[j];
-                        vector[j] = auxiliar
-                    }
-                }
-            }
-            return vector
-        }
-
-
-        btnSumarFilasMatriz.addEventListener('click', (event) => {
-            event.preventDefault()
-            const vectorSumaFilas = fnSumarFilas()
-            txtRespuesta.value = vectorSumaFilas.map((v, i) => `Suma fila [${i}]: ${v}`).join('\n')
-        })
-
-        function fnSumarFilas() {
-            let vectorSumaFilas = []
-            for (let f = 0; f < FILAS; f++) {
-                let total = 0
-                for (let c = 0; c < COLUMNAS; c++) {
-                    total += matriz[f][c]
-                }
-                vectorSumaFilas[f] = total
-            }
-            return vectorSumaFilas
-        }
-
-
-        btnSumarColumnasMatriz.addEventListener('click', (event) => {
-            event.preventDefault()
-            const vectorSumaColumnas = fnSumarColumnas()
-            txtRespuesta.value = vectorSumaColumnas.map((v, i) => `Suma columna [${i}]: ${v}`).join('\n')
-        })
-
-        function fnSumarColumnas() {
-            let vectorSumaColumnas = []
-            for (let c = 0; c < COLUMNAS; c++) {
-                let total = 0
-                for (let f = 0; f < FILAS; f++) {
-                    total += matriz[f][c]
-                }
-                vectorSumaColumnas[c] = total
-            }
-            return vectorSumaColumnas
         }
     </script>
 </body>
