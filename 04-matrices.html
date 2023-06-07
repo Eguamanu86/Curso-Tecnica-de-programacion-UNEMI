@@ -59,7 +59,19 @@
                 <td colspan="5"><button id="btn-vaciar-matriz">Vaciar Matriz</button></td>
             </tr>
             <tr>
-                <td colspan="10"><button id="btn-ordenar-matriz">Ordenar Matriz ASC</button></td>
+                <td colspan="5"><button id="btn-calcular-suma-filas">Cacular Suma de Filas</button></td>
+                <td colspan="5"><button id="btn-calcular-suma-columnas">Cacular Suma de Columnas</button></td>
+            </tr>
+            <tr>
+                <td colspan="5"><button id="btn-ordenar-matriz-tradicional">Ordenar Matriz ASC (Tradicional)</button>
+                </td>
+                <td colspan="5"><button id="btn-ordenar-matriz-vector-temporal">Ordenar Matriz ASC (Vector
+                        Temp)</button></td>
+            </tr>
+            <tr>
+                <td colspan="5"><button id="btn-calcular-matriz-traspuesta">Calcular Matriz Traspuesta</button></td>
+                <td colspan="5"><button id="btn-calcular-matriz-media-aritmetica-filas">Calcular Media Aritmética de
+                        Filas</button></td>
             </tr>
         </tfoot>
     </table>
@@ -84,7 +96,7 @@
         let matriz = []
         let matrizResultado = []
 
-        const NUM_MINIMO_RANDOM = 1
+        const NUM_MINIMO_RANDOM = -50
         const NUM_MAXIMO_RANDOM = 100
 
         // refrencia al cuerpo de la tabla: tbody
@@ -94,7 +106,15 @@
         // agregamos las referencias a los botones del DOM
         const btnCargarMatriz = document.getElementById("btn-cargar-matriz")
         const btnVaciarMatriz = document.getElementById("btn-vaciar-matriz")
-        const btnOrdenarMatriz = document.getElementById("btn-ordenar-matriz")
+
+        const btnCalcularSumaFilas = document.getElementById("btn-calcular-suma-filas")
+        const btnCalcularSumaColumnas = document.getElementById("btn-calcular-suma-columnas")
+
+        const btnOrdenarMatrizTradicional = document.getElementById("btn-ordenar-matriz-tradicional")
+        const btnOrdenarMatrizVectorTemp = document.getElementById("btn-ordenar-matriz-vector-temporal")
+
+        const btnCalcularMatrizTraspuesta = document.getElementById("btn-calcular-matriz-traspuesta")
+        const btnCalcularMediaAritmeticaFilas = document.getElementById("btn-calcular-matriz-media-aritmetica-filas")
 
         // referencia a la caja de texto: control textarea
         const txtRespuesta = document.getElementById("id-txt-respuesta")
@@ -155,6 +175,7 @@
                 str += '</tr>'
             }
             tableTbody.innerHTML = str
+            console.log(matriz)
         }
         // procedimiento que genera cadena de etiquetas HTML(tr,td) para presentar en la pantalla GUI
         function fnPresentarMatrizResultado() {
@@ -165,11 +186,12 @@
                 str += '</tr>'
             }
             tableTbodyResultado.innerHTML = str
+            console.log(matrizResultado)
         }
 
 
-        // metodos de burbuja
-        btnOrdenarMatriz.addEventListener('click', (event) => {
+        // metodos de burbuja tradicional
+        btnOrdenarMatrizTradicional.addEventListener('click', (event) => {
             event.preventDefault()
             fnOrdenarMatrizMeotodoBurbuja()
             fnPresentarMatrizResultado()
@@ -195,6 +217,98 @@
 
                         }
                     }
+                }
+            }
+        }
+
+
+        // metodos de burbuja tradicional
+        btnOrdenarMatrizVectorTemp.addEventListener('click', (event) => {
+            event.preventDefault()
+            fnOrdenarMatrizMeotodoBurbujaConVectorAuxiliar()
+            fnPresentarMatrizResultado()
+        })
+
+        // ordenamiento de valores por metodos de burbuja,
+        // utilizando un vector temporal para ordenar y luego pasarlos a la matriz original
+        function fnOrdenarMatrizMeotodoBurbujaConVectorAuxiliar() {
+            let vectorUnidimensional = []
+            vectorUnidimensional = vectorUnidimensional.concat(...matriz)
+
+            vectorUnidimensional = ordenarVectorPorMetodoBurbuja(vectorUnidimensional)
+
+            for (let f = 0; f < FILAS; f++) {
+                matrizResultado[f] = vectorUnidimensional.splice(0, COLUMNAS)
+            }
+
+        }
+
+        //Metodo de burbuja para vectores unidimensional.
+        function ordenarVectorPorMetodoBurbuja(vector) {
+            for (let i = 0; i < vector.length - 1; i++) {
+                for (let j = i + 1; j < vector.length; j++) {
+                    if (vector[i] > vector[j]) {
+                        let auxiliar = vector[i];
+                        vector[i] = vector[j];
+                        vector[j] = auxiliar
+                    }
+                }
+            }
+            return vector
+        }
+
+
+        btnCalcularSumaFilas.addEventListener('click', (event) => {
+            event.preventDefault()
+            const vectorSumaFilas = fnSumarFilas()
+            txtRespuesta.value = vectorSumaFilas.map((v, i) => `Suma fila [${i}]: ${v}`).join('\n')
+        })
+
+        function fnSumarFilas() {
+            let vectorSumaFilas = []
+            for (let f = 0; f < FILAS; f++) {
+                let total = 0
+                for (let c = 0; c < COLUMNAS; c++) {
+                    total += matriz[f][c]
+                }
+                vectorSumaFilas[f] = total
+            }
+            return vectorSumaFilas
+        }
+
+
+        btnCalcularSumaColumnas.addEventListener('click', (event) => {
+            event.preventDefault()
+            const vectorSumaColumnas = fnSumarColumnas()
+            txtRespuesta.value = vectorSumaColumnas.map((v, i) => `Suma columna [${i}]: ${v}`).join('\n')
+        })
+
+        function fnSumarColumnas() {
+            let vectorSumaColumnas = []
+            for (let c = 0; c < COLUMNAS; c++) {
+                let total = 0
+                for (let f = 0; f < FILAS; f++) {
+                    total += matriz[f][c]
+                }
+                vectorSumaColumnas[c] = total
+            }
+            return vectorSumaColumnas
+        }
+
+
+        btnCalcularMatrizTraspuesta.addEventListener('click', (event) => {
+            event.preventDefault()
+            fnCalcularMatrizTraspuesta()
+            fnPresentarMatrizResultado()
+        })
+
+        function fnCalcularMatrizTraspuesta() {
+            for (let f = 0; f < FILAS; f++) {
+                for (let c = 0; c < COLUMNAS; c++) {
+                    if (!matrizResultado[c]) {
+                        matrizResultado[c] = []
+                    }
+                    matrizResultado[c][f] = matriz[f][c]
                 }
             }
         }
