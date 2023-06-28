@@ -1,0 +1,15 @@
+@startuml
+
+class OperacionMatematica{
+    numero1: number
+    numero2: number
+    resultado: number
+
+    + constructor(numero1, numero2)
+    + sumar()
+    + restar()
+    + multiplicar()
+    + dividir()
+}
+
+@enduml
