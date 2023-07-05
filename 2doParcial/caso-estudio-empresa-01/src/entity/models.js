@@ -7,6 +7,7 @@ class Genero {
 }
 
 class Persona {
+  // metodo constructor
   constructor(cedula, nombres, apellidos, fechaNacimiento, direccion, telefono, correo, genero) {
     this.cedula = cedula
     this.nombres = nombres
@@ -19,6 +20,7 @@ class Persona {
     this.genero = new Genero(genero)
   }
 
+  // metodo para calcular la Edad
   getEdad() {
     const hoy = new Date()
     let edad = hoy.getFullYear() - this.fechaNacimiento.getFullYear()
@@ -32,13 +34,17 @@ class Persona {
 }
 
 class Cliente extends Persona {
+  // metodo constructor
   constructor(cedula, nombres, apellidos, fechaNacimiento, direccion, telefono, correo, genero = 'M', fechaIngreso = new Date(), montoVenta = 0, tipoPago = 'EFECTIVO', fechaVenta, vencimiento) {
+    // metodo constructor de la clase Padre = Persona
     super(cedula, nombres, apellidos, fechaNacimiento, direccion, telefono, correo, genero)
+
     this.fechaIngreso = new Date(fechaIngreso)
-    this.montoVenta = montoVenta
+    this.montoVenta = Number(montoVenta)
     this.tipoPago = this.#getTipoPago(tipoPago, montoVenta, fechaVenta, vencimiento)
   }
 
+  // metodo que retorna una instancia de Tipo de Pago: Efectivo, Debito, Credito etc.
   #getTipoPago(tipoPago, montoVenta, fechaVenta, vencimiento) {
     switch (tipoPago) {
       case 'EFECTIVO':
@@ -53,7 +59,6 @@ class Cliente extends Persona {
         return null
     }
   }
-
 
   static storeData(data) {
     return new Cliente(
@@ -79,11 +84,33 @@ class Cliente extends Persona {
 }
 
 class Empleado extends Persona {
-  constructor(cedula, nombres, apellidos, fechaNacimiento, direccion, telefono, correo, genero = 'M', fechaIngreso, sueldoBase = 0, horasTrabajadas = 0) {
+
+  constructor(cedula, nombres, apellidos, fechaNacimiento, direccion, telefono, correo, genero = 'M', fechaIngreso, sueldoBase = 0, horasTrabajadasMes = 0) {
     super(cedula, nombres, apellidos, fechaNacimiento, direccion, telefono, correo, genero)
-    this.fechaIngreso = fechaIngreso
-    this.sueldoBase = sueldoBase
-    this.horasTrabajadas = horasTrabajadas
+    this.fechaIngreso = new Date(fechaIngreso)
+    this.sueldoBase = Number(sueldoBase)
+    this.horasTrabajadasMes = Number(horasTrabajadasMes)
+    this.sueldoPorHora = (this.sueldoBase / 20) / 8
+  }
+
+  static storeData(data) {
+    return new Empleado(
+      data.cedula,
+      data.nombres,
+      data.apellidos,
+      data.fechaNacimiento,
+      data.direccion,
+      data.telefono,
+      data.correo,
+      data.genero?.codigo || data.genero,
+      data.fechaIngreso,
+      data.sueldoBase,
+      data.horasTrabajadasMes
+    )
+  }
+
+  getSueldoPagarFinMes() {
+    return this.sueldoPorHora * this.horasTrabajadasMes
   }
 
 }
