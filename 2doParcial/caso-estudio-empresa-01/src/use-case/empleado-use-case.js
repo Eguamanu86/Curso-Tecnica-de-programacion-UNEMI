@@ -39,6 +39,14 @@ export class EmpleadoUseCase {
     return empleado
   }
 
+  getEmpleadoMayorSueldoFinMesConReduce() {
+    const empleados = this.empleadoRepository.read()
+    const empleado = empleados.reduce((enterior, actual) =>
+      actual.getSueldoPagarFinMes() > enterior.getSueldoPagarFinMes() ? actual : enterior
+    )
+    return empleado
+  }
+
 
 
 }

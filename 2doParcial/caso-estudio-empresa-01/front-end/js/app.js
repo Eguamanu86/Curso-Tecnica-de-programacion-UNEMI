@@ -66,6 +66,6 @@ formEmpleado.addEventListener('submit', (event) => {
 
 btnMaximoSueldo.addEventListener('click', (event) => {
   event.preventDefault()
-  const empleado = empleadoUseCase.getEmpleadoMayorSueldoFinMes()
+  const empleado = empleadoUseCase.getEmpleadoMayorSueldoFinMesConReduce()
   alert("Empleado:" + empleado.nombres + " - " + empleado.apellidos + ": sueldo: " + empleado.getSueldoPagarFinMes())
 })
