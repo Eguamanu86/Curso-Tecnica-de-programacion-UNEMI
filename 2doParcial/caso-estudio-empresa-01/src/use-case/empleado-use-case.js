@@ -15,4 +15,30 @@ export class EmpleadoUseCase {
     return this.empleadoRepository.read()
   }
 
+  getMayorSueldoFinMes() {
+    const empleados = this.empleadoRepository.read()
+    const sueldos = empleados.map(e => e.getSueldoPagarFinMes())
+    console.log(sueldos)
+    const maximoSueldo = Math.max(...sueldos)
+    console.log(maximoSueldo)
+    return maximoSueldo
+  }
+
+  getEmpleadoMayorSueldoFinMes() {
+    const empleados = this.empleadoRepository.read()
+    let mayorSueldo = 0
+    let empleado = null
+
+    for (const e of empleados) {
+      const sueldo = e.getSueldoPagarFinMes()
+      if (sueldo > mayorSueldo) {
+        mayorSueldo = sueldo
+        empleado = e
+      }
+    }
+    return empleado
+  }
+
+
+
 }

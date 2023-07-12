@@ -17,4 +17,6 @@ export class ClienteUseCase {
     return this.clienteRepository.read()
   }
 
+
+
 }

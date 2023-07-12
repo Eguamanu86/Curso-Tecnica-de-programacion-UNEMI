@@ -13,6 +13,10 @@ const tableClientesTbody = document.querySelector('#id-table-clientes > tbody')
 const formEmpleado = document.querySelector('#id-form-empleado')
 const tableEmpleadosTbody = document.querySelector('#id-table-empleados > tbody')
 
+const btnMaximoSueldo = document.querySelector('#id-btn-maximo-sueldo')
+
+
+
 // creamos las Instancias de las clases ClienteUseCase, EmpleadoUseCase
 const clienteUseCase = new ClienteUseCase()
 const empleadoUseCase = new EmpleadoUseCase()
@@ -57,4 +61,11 @@ formEmpleado.addEventListener('submit', (event) => {
   tableEmpleadosTbody.innerHTML = template
 
 
+})
+
+
+btnMaximoSueldo.addEventListener('click', (event) => {
+  event.preventDefault()
+  const empleado = empleadoUseCase.getEmpleadoMayorSueldoFinMes()
+  alert("Empleado:" + empleado.nombres + " - " + empleado.apellidos + ": sueldo: " + empleado.getSueldoPagarFinMes())
 })
