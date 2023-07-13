@@ -13,6 +13,10 @@ const tableClientesTbody = document.querySelector('#id-table-clientes > tbody')
 const formEmpleado = document.querySelector('#id-form-empleado')
 const tableEmpleadosTbody = document.querySelector('#id-table-empleados > tbody')
 
+const modalRespuesta = new bootstrap.Modal(document.getElementById('id-modal-respuesta'), {
+  keyboard: false
+})
+
 const btnMaximoSueldo = document.querySelector('#id-btn-maximo-sueldo')
 
 
@@ -66,6 +70,5 @@ formEmpleado.addEventListener('submit', (event) => {
 
 btnMaximoSueldo.addEventListener('click', (event) => {
   event.preventDefault()
-  const empleado = empleadoUseCase.getEmpleadoMayorSueldoFinMesConReduce()
-  alert("Empleado:" + empleado.nombres + " - " + empleado.apellidos + ": sueldo: " + empleado.getSueldoPagarFinMes())
+  modalRespuesta.show()
 })
