@@ -47,6 +47,23 @@ export class EmpleadoUseCase {
     return empleado
   }
 
+  getEmpleadoMayorSueldoPorGenero() {
+    const empleados = this.empleadoRepository.read()
+
+    const empleadosMasculino = empleados.filter(e => e.genero.codigo == 'M')
+    const empleadosFemino = empleados.filter(e => e.genero.codigo == 'F')
+
+    const empleadoMasculinoMayorSueldo = empleadosMasculino.reduce((enterior, actual) =>
+      actual.getSueldoPagarFinMes() > enterior.getSueldoPagarFinMes() ? actual : enterior
+    )
+
+    const empleadoFemeninoMayorSueldo = empleadosFemino.reduce((enterior, actual) =>
+      actual.getSueldoPagarFinMes() > enterior.getSueldoPagarFinMes() ? actual : enterior
+    )
+    return { empleadoMasculinoMayorSueldo, empleadoFemeninoMayorSueldo }
+
+  }
+
 
 
 }
