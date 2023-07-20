@@ -1,0 +1,23 @@
+@startuml
+
+class Empleado {
+    cedula: string
+    nombres: string
+    apellidos: string
+    genero: string
+    fechaNacimiento: date
+    fechaIngreso: date
+    salarioBasico: number
+
+    + calcularEdad()
+    + calcularAntiguedad()
+    + calcularPrestaciones()
+
+    + crear()
+    + leer()
+    + modificar()
+    + eliminar()
+}
+
+
+@enduml

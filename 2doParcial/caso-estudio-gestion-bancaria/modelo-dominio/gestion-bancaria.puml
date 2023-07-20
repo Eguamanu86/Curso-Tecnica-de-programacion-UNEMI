@@ -1,0 +1,83 @@
+@startuml
+class Banco{
+    ruc: string
+    razonSocial: string
+    nombre: string
+    direccion: string
+    correo: string
+}
+
+class Persona{
+    cedula: string
+    nombres: string
+    apellidos: string
+    genero: string
+    direccion: string
+    telefono: string
+}
+
+class Cliente{}
+class Empleado{}
+
+class CuentaBancaria{
+    numeroCuenta: string
+    fechaApertura: date
+    saldo: number
+    tipoInteres: number
+}
+
+class FondoInversion{
+    nombre: string
+    importe: number
+    rentabilidad: number
+    fechaApertura: date
+    vencimiento: date
+}
+
+class CarteraValor{
+
+}
+
+Class Valor{
+    nombreValor: string
+    numeroTitulo: string
+    precioCotizacion: number
+}
+
+class Ahorro{}
+class Corriente{}
+
+
+class TarjetaCredito{
+    tipo: string
+    numero: string
+    titular: Cliente
+    fechaCaducidad: date
+}
+
+class Sucursal{
+    identificador: string
+    direccion: string
+}
+
+Persona <|-- Cliente
+Persona <|-- Empleado
+
+
+CuentaBancaria <|-- Ahorro
+CuentaBancaria <|-- Corriente
+
+
+Cliente "1" -- "1..*" CuentaBancaria
+Corriente  -- TarjetaCredito
+Corriente  -- FondoInversion
+Corriente  -- CarteraValor
+
+Empleado "1" -- "1" Sucursal
+CarteraValor --* Valor
+
+Banco *-- CuentaBancaria
+Banco o-- Cliente
+Banco *-- Empleado
+
+@enduml
