@@ -38,7 +38,7 @@ class CarteraValor{
 
 }
 
-Class Valor{
+class Valor{
     nombreValor: string
     numeroTitulo: string
     precioCotizacion: number
