@@ -14,7 +14,7 @@ export class ClienteRespository {
         c.telefono
       )
     })
-    // this.clientes = [Cliente(),Cliente()]
+    // this.clientes = [Cliente(),Cliente().... n]
   }
 
   //get: retornar valores
@@ -25,6 +25,7 @@ export class ClienteRespository {
   // set: asignar valores o crear
   setCreate(cliente) {             // 0 ,     1  ,     2
     this.clientes.push(cliente) // [Cliente1,Cliente2,Cliente(end)... n]
+    //                     JSON  [{nombre: "ernesto"}]
     //                     key    ,  JSON: [{"nombre":"ernesto"},{}]
     localStorage.setItem('clientes', JSON.stringify(this.clientes))
   }
