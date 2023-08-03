@@ -40,6 +40,7 @@ function renderCuentasBancaria(cuentas) {
                     <a class="dropdown-item" href="#" rel="accion-debitar" data-id="${c.numeroCuenta}">Eliminar</a>
                     <a class="dropdown-item" href="#" rel="accion-debitar" data-id="${c.numeroCuenta}">Depositar</a>
                     <a class="dropdown-item" href="#" rel="accion-debitar" data-id="${c.numeroCuenta}">Retiros</a>
+                    <a class="dropdown-item" href="#" rel="accion-debitar" data-id="${c.numeroCuenta}">Agregar productos</a>
                   </li>
                 </ul>
               </div>
